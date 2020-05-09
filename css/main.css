@@ -1,0 +1,246 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+  
+body {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Press Start 2P', cursive;
+    background-color: black;
+    color: white;
+}
+
+h1 {
+    font-family: 'Bungee Outline', cursive;
+    font-size: 7vmin;
+    margin: 0;
+    height: 10vmin;
+    line-height: 10vmin;
+}
+
+h1 > span:nth-child(1) {
+    color: red;
+}
+
+h1 > span:nth-child(2) {
+    color: darkorange;
+}
+
+h1 > span:nth-child(3) {
+    color: yellow;
+}
+
+h1 > span:nth-child(4) {
+    color: lime;
+}
+
+h1 > span:nth-child(5) {
+    color: deepskyblue;
+}
+
+h1 > span:nth-child(6) {
+    color: darkviolet;
+}
+
+main {
+    height: 60vmin;
+    width: 60vmin;
+    display: grid;
+    margin: 3vmin;
+    gap: 1vmin 3vmin;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 1fr 3fr 1fr 3fr 1fr 3fr;
+}
+
+main > div {
+    font-size: 2vmin;
+    line-height: 5vmin;
+}
+
+#score-label {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+#score-value {
+    grid-column: 1;
+    grid-row: 2;
+    text-align: right;
+}
+
+#level-label {
+    grid-column: 1;
+    grid-row: 3;
+}
+
+#level-value {
+    grid-column: 1;
+    grid-row: 4;
+    text-align: right;
+}
+
+#lines-label {
+    grid-column: 1;
+    grid-row: 5;
+}
+
+#lines-value {
+    grid-column: 1;
+    grid-row: 6;
+    text-align: right;
+}
+
+#next-label {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+#next-value {
+    grid-column: 3;
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: repeat(4, 2vmin);
+    grid-template-rows: repeat(4, 2vmin);
+    justify-content: right;
+}
+
+#next-value > div {
+    border: outset;
+    border-color: transparent;
+    background-color: transparent;
+}
+
+#saved-label {
+    grid-column: 3;
+    grid-row: 3;
+}
+
+#saved-value {
+    grid-column: 3;
+    grid-row: 4;
+    display: grid;
+    grid-template-columns: repeat(4, 2vmin);
+    grid-template-rows: repeat(4, 2vmin);
+    justify-content: right;
+}
+
+#saved-value > div {
+    border: outset;
+    border-color: transparent;
+    background-color: transparent;
+}
+
+#remain-label {
+    grid-column: 3;
+    grid-row: 5;
+}
+
+#remain-value {
+    grid-column: 3;
+    grid-row: 6;
+    text-align: right;
+}
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(10, 3vmin);
+    grid-template-rows: repeat(20, 3vmin);
+    grid-column: 2;
+    grid-row: 1 / span 6;
+    outline: white solid 1px;
+}
+
+#board > div {
+    border: outset;
+    border-color: transparent;
+    background-color: transparent;
+}
+
+#controls {
+    display: grid;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 1vmin;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    margin-top: 1vmin;
+}
+
+#controls > div {
+    font-size: 1vmin;
+}
+
+#info {
+    padding-left: 3vmin;
+    margin-top: 1vmin;
+}
+
+#labels {
+    margin-top: -1vmin;
+}
+
+#clickable {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    gap: 1vmin;
+    grid-template-columns: 6vmin 6vmin 6vmin;
+    grid-template-rows: 5vmin 5vmin 5vmin;
+}
+
+#clickable > button {
+    height: 100%;
+    width: 100%;
+    border: outset white;
+    background-color: white;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 2vmin;
+}
+
+#clickable > button:hover {
+    background-color: lightgrey;
+}
+
+#clickable > button:active {
+    border: inset lightgrey;
+}
+
+#clockwise {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+#save {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+#counter {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+#left {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+#soft {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+#right {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+#hard {
+    grid-area: "space";
+    grid-column: 1 / span 3;
+    grid-row: 3;
+}
