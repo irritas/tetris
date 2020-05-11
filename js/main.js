@@ -1,4 +1,4 @@
-// Version 0.4
+// Version 0.41
 
 /*--- CONSTANTS ---*/
 
@@ -57,13 +57,276 @@ class Block {
                     [null, null, null, null],
                     [null, null, null, null]
                 ];
+                break;
         }
     }
 }
 
 class IBlock extends Block {
     constructor() {
+        super();
+        this.content = [
+            [null, null, null, null],
+            [`I`, `I`, `I`, `I`],
+            [null, null, null, null],
+            [null, null, null, null]
+        ];
+    }
 
+    update() {
+        switch (this.orient) {
+            case 0:
+            case 2:
+                this.content = [
+                    [null, null, null, null],
+                    [`I`, `I`, `I`, `I`],
+                    [null, null, null, null],
+                    [null, null, null, null]
+                ];
+                break;
+            case 1:
+            case 3:
+                this.content = [
+                    [null, `I`, null, null],
+                    [null, `I`, null, null],
+                    [null, `I`, null, null],
+                    [null, `I`, null, null]
+                ];
+                break;
+        }
+    }
+}
+
+class LBlock extends Block {
+    constructor() {
+        super();
+        this.content = [
+            [null, null, null, null],
+            [`L`, `L`, `L`, null],
+            [`L`, null, null, null],
+            [null, null, null, null]
+        ];
+    }
+
+    update() {
+        switch (this.orient) {
+            case 0:
+                this.content = [
+                    [null, null, null, null],
+                    [`L`, `L`, `L`, null],
+                    [`L`, null, null, null],
+                    [null, null, null, null]
+                ];
+                break;
+            case 1:
+                this.content = [
+                    [null, `L`, `L`, null],
+                    [null, null, `L`, null],
+                    [null, null, `L`, null],
+                    [null, null, null, null]
+                ];
+                break;
+            case 2:
+                this.content = [
+                    [null, null, null, null],
+                    [null, null, `L`, null],
+                    [`L`, `L`, `L`, null],
+                    [null, null, null, null]
+                ];
+                break;
+            case 3:
+                this.content = [
+                    [null, null, null, null],
+                    [null, `L`, null, null],
+                    [null, `L`, null, null],
+                    [null, `L`, `L`, null]
+                ];
+                break;
+        }
+    }
+}
+
+class JBlock extends Block {
+    constructor() {
+        super();
+        this.content = [
+            [null, null, null, null],
+            [`L`, `L`, `L`, null],
+            [`L`, null, null, null],
+            [null, null, null, null]
+        ];
+    }
+
+    update() {
+        switch (this.orient) {
+            case 0:
+                this.content = [
+                    [null, null, null, null],
+                    [null, `J`, `J`, `J`],
+                    [null, null, null, `J`],
+                    [null, null, null, null]
+                ];
+                break;
+            case 1:
+                this.content = [
+                    [null, null, null, null],
+                    [null, null, `J`, null],
+                    [null, null, `J`, null],
+                    [null, `J`, `J`, null]
+                ];
+                break;
+            case 2:
+                this.content = [
+                    [null, null, null, null],
+                    [null, `J`, null, null],
+                    [null, `J`, `J`, `J`],
+                    [null, null, null, null]
+                ];
+                break;
+            case 3:
+                this.content = [
+                    [null, `J`, `J`, null],
+                    [null, `J`, null, null],
+                    [null, `J`, null, null],
+                    [null, null, null, null]
+                ];
+                break;
+        }
+    }
+}
+
+class TBlock extends Block {
+    constructor() {
+        super();
+        this.content = [
+            [null, `T`, null, null],
+            [`T`, `T`, `T`, null],
+            [null, null, null, null],
+            [null, null, null, null]
+        ];
+    }
+
+    update() {
+        switch (this.orient) {
+            case 0:
+                this.content = [
+                    [null, `T`, null, null],
+                    [`T`, `T`, `T`, null],
+                    [null, null, null, null],
+                    [null, null, null, null]
+                ];
+                break;
+            case 1:
+                this.content = [
+                    [null, `T`, null, null],
+                    [null, `T`, `T`, null],
+                    [null, `T`, null, null],
+                    [null, null, null, null]
+                ];
+                break;
+            case 2:
+                this.content = [
+                    [null, null, null, null],
+                    [`T`, `T`, `T`, null],
+                    [null, `T`, null, null],
+                    [null, null, null, null]
+                ];
+                break;
+            case 3:
+                this.content = [
+                    [null, `T`, null, null],
+                    [`T`, `T`, null, null],
+                    [null, `T`, null, null],
+                    [null, null, null, null]
+                ];
+                break;
+        }
+    }
+}
+
+class OBlock extends Block {
+    constructor() {
+        super();
+        this.content = [
+            [`O`, `O`, null, null],
+            [`O`, `O`, null, null],
+            [null, null, null, null],
+            [null, null, null, null]
+        ];
+    }
+
+    update() {
+        return;
+    }
+}
+
+class SBlock extends Block {
+    constructor() {
+        super();
+        this.content = [
+            [null, null, null, null],
+            [null, `S`, `S`, null],
+            [`S`, `S`, null, null],
+            [null, null, null, null]
+        ];
+    }
+
+    update() {
+        switch (this.orient) {
+            case 0:
+            case 2:
+                this.content = [
+                    [null, null, null, null],
+                    [null, `S`, `S`, null],
+                    [`S`, `S`, null, null],
+                    [null, null, null, null]
+                ];
+                break;
+            case 1:
+            case 3:
+                this.content = [
+                    [null, `S`, null, null],
+                    [null, `S`, `S`, null],
+                    [null, null, `S`, null],
+                    [null, null, null, null]
+                ];
+                break;
+        }
+    }
+}
+
+class ZBlock extends Block {
+    constructor() {
+        super();
+        this.content = [
+            [null, null, null, null],
+            [`Z`, `Z`, null, null],
+            [null, `Z`, `Z`, null],
+            [null, null, null, null]
+        ];
+    }
+
+    update() {
+        switch (this.orient) {
+            case 0:
+            case 2:
+                this.content = [
+                    [null, null, null, null],
+                    [`Z`, `Z`, null, null],
+                    [null, `Z`, `Z`, null],
+                    [null, null, null, null]
+                ];
+                break;
+            case 1:
+            case 3:
+                this.content = [
+                    [null, null, `Z`, null],
+                    [null, `Z`, `Z`, null],
+                    [null, `Z`, null, null],
+                    [null, null, null, null]
+                ];
+                break;
+        }
     }
 }
 
@@ -86,6 +349,8 @@ let nextBlock;
 let savedBlock;
 let currentBlock;
 let board;
+let curX;
+let curY;
 
 
 /*--- CACHE ---*/
@@ -284,6 +549,8 @@ function pressSpace() {
 // Initializer, pass in level
 function init(newLevel) {
     level = newLevel;   // Current level
+    curX = 3;
+    curY = 0;
     
     // Set level timer
     maxTime = INITIALTIME - (5000 * (level - 1));       // Lose 5 seconds per level
@@ -349,7 +616,7 @@ function play(level) {
     const secondTick = setInterval(() => {
         maxTime -= 1000;
         timeDisplay();
-        console.log(`second`);
+        console.log(maxTime);
 
         // Run out of time
         if (maxTime <= 0) {
