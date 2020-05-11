@@ -1,4 +1,4 @@
-// Version 0.42
+// Version 0.421
 
 /*--- CONSTANTS ---*/
 
@@ -602,7 +602,7 @@ function checkLines() {
             board.unshift(NEWROW);
         }
     }
-    score += total * lineScore * multiply ** (total - 1);
+    score += Math.floor(total * lineScore * multiply ** (total - 1));
     linesMade += total;
     remain -= total;
     if (remain < 1) {
@@ -611,8 +611,8 @@ function checkLines() {
 }
 
 // Main game function
-function play(level) {
-    init(level);
+function play(newLevel) {
+    init(newLevel);
     const secondTick = setInterval(() => {
         maxTime -= 1000;
         timeDisplay();
