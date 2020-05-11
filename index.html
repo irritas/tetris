@@ -25,9 +25,11 @@
         <div id="score-label">Score:</div>
         <div id="score-value">0</div>
         <div id="level-label">Level:</div>
-        <div id="level-value">1</div>
+        <div id="level-value">0</div>
         <div id="lines-label">Lines:</div>
         <div id="lines-value">0</div>
+        <div id="remain-label">Left:</div>
+        <div id="remain-value">0</div>
 
         <div id="next-label">Next:</div>
         <div id="next-value">
@@ -73,8 +75,6 @@
             <div id="saved-3-2"></div>
             <div id="saved-3-3"></div>
         </div>
-        <div id="remain-label">Left:</div>
-        <div id="remain-value">10</div>
 
         <div id="board">
             <div id="0-0"></div>
@@ -297,15 +297,17 @@
             <div id="19-8"></div>
             <div id="19-9"></div>
         </div>
+        <div id="timer-label">Timer:</div>
+        <div id="timer-value"><span id="minutes">0</span>:<span id="seconds">00</span></div>
     </main>
 
     <section id="controls">
         <div id="info">
             <p>Info:<br><br></p>
-            <p>Score per line: <span id="line-score">0</span></p>
             <p>Score per drop: <span id="soft-score">0</span></p>
             <p>Score per complete: <span id="hard-score">0</span></p>
-            <p>Time played: <span id="minutes">0</span>:<span id="seconds">00</span></p>
+            <p>Score per line: <span id="line-score">0</span></p>
+            <p><br>x<span id="multiply">1</span> per bonus line</p>
         </div>
         <section id="clickable">
             <button id="clockwise">Q</button>

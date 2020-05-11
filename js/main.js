@@ -1,4 +1,4 @@
-// Version 0.2
+// Version 0.3
 
 /*--- CONSTANTS ---*/
 
@@ -11,6 +11,12 @@ const color = {
     z: "red",
     t: "darkviolet"
 };
+
+INITIALTIME = 120000;   // 2 min for level 1
+MINTIME = 10000;        // 10 sec min per level
+
+// Empty row
+NEWROW = [null, null, null, null, null, null, null, null, null, null];
 
 
 /*--- CLASSES ---*/
@@ -25,11 +31,12 @@ class Block {
 let level;
 let seconds;
 let minutes;
-let remainTime;
+let maxTime;
 let lineScore;
 let softScore;
 let hardScore;
 let remain;
+let multiply;
 let score;
 let linesMade;
 let nextBlock;
@@ -49,6 +56,7 @@ const softScoreEl = document.getElementById("soft-score");
 const hardScoreEl = document.getElementById("hard-score");
 const minutesEl = document.getElementById("minutes");
 const secondsEl = document.getElementById("seconds");
+const multiplyEl = document.getElementById("multiply");
 
 let qButton = document.getElementById("clockwise");
 let wButton = document.getElementById("save");
@@ -64,43 +72,103 @@ let spaceButton = document.getElementById("hard");
 window.addEventListener("keydown", pressKey);
 window.addEventListener("keyup", releaseKey);
 
+qButton.addEventListener("mouseover", mouseOver);
+wButton.addEventListener("mouseover", mouseOver);
+eButton.addEventListener("mouseover", mouseOver);
+aButton.addEventListener("mouseover", mouseOver);
+sButton.addEventListener("mouseover", mouseOver);
+dButton.addEventListener("mouseover", mouseOver);
+spaceButton.addEventListener("mouseover", mouseOver);
+
+qButton.addEventListener("mouseout", mouseOut);
+wButton.addEventListener("mouseout", mouseOut);
+eButton.addEventListener("mouseout", mouseOut);
+aButton.addEventListener("mouseout", mouseOut);
+sButton.addEventListener("mouseout", mouseOut);
+dButton.addEventListener("mouseout", mouseOut);
+spaceButton.addEventListener("mouseout", mouseOut);
+
+qButton.addEventListener("mousedown", mouseDown);
+wButton.addEventListener("mousedown", mouseDown);
+eButton.addEventListener("mousedown", mouseDown);
+aButton.addEventListener("mousedown", mouseDown);
+sButton.addEventListener("mousedown", mouseDown);
+dButton.addEventListener("mousedown", mouseDown);
+spaceButton.addEventListener("mousedown", mouseDown);
+
+qButton.addEventListener("mouseup", mouseUp);
+wButton.addEventListener("mouseup", mouseUp);
+eButton.addEventListener("mouseup", mouseUp);
+aButton.addEventListener("mouseup", mouseUp);
+sButton.addEventListener("mouseup", mouseUp);
+dButton.addEventListener("mouseup", mouseUp);
+spaceButton.addEventListener("mouseup", mouseUp);
+
+qButton.addEventListener("click", pressQ);
+wButton.addEventListener("click", pressW);
+eButton.addEventListener("click", pressE);
+aButton.addEventListener("click", pressA);
+sButton.addEventListener("click", pressS);
+dButton.addEventListener("click", pressD);
+spaceButton.addEventListener("click", pressSpace);
+
 
 /*--- FUNCTIONS ---*/
 
+// Hover highlight
+function mouseOver(evt) {
+    evt.target.style.backgroundColor = "lightgrey";
+}
+
+function mouseOut(evt) {
+    evt.target.style.backgroundColor = "white";
+}
+
+// Button animation
+function mouseDown(evt) {
+    evt.target.style.border = "inset lightgrey";
+}
+
+function mouseUp(evt) {
+    evt.target.style.border = "outset white";
+    evt.target.blur();
+}
+
+// Keypress alternative
 function pressKey(evt) {
     switch (evt.keyCode) {
         case 81:
-            qButton.click();
+            pressQ();
             qButton.style.border = "inset lightgrey";
             qButton.style.backgroundColor = "lightgrey";
             break;
         case 87:
-            wButton.click();
+            pressW();
             wButton.style.border = "inset lightgrey";
             wButton.style.backgroundColor = "lightgrey";
             break;
         case 69:
-            eButton.click();
+            pressE();
             eButton.style.border = "inset lightgrey";
             eButton.style.backgroundColor = "lightgrey";
             break;
         case 65:
-            aButton.click();
+            pressA();
             aButton.style.border = "inset lightgrey";
             aButton.style.backgroundColor = "lightgrey";
             break;
         case 83:
-            sButton.click();
+            pressS();
             sButton.style.border = "inset lightgrey";
             sButton.style.backgroundColor = "lightgrey";
             break;
         case 68:
-            dButton.click();
+            pressD();
             dButton.style.border = "inset lightgrey";
             dButton.style.backgroundColor = "lightgrey";
             break;
         case 32:
-            spaceButton.click();
+            pressSpace();
             spaceButton.style.border = "inset lightgrey";
             spaceButton.style.backgroundColor = "lightgrey";
             break;
@@ -114,82 +182,119 @@ function releaseKey(evt) {
             qButton.style.backgroundColor = "white";
             break;
         case 87:
-            wButton.click();
             wButton.style.border = "outset white";
             wButton.style.backgroundColor = "white";
             break;
         case 69:
-            eButton.click();
             eButton.style.border = "outset white";
             eButton.style.backgroundColor = "white";
             break;
         case 65:
-            aButton.click();
             aButton.style.border = "outset white";
             aButton.style.backgroundColor = "white";
             break;
         case 83:
-            sButton.click();
             sButton.style.border = "outset white";
             sButton.style.backgroundColor = "white";
             break;
         case 68:
-            dButton.click();
             dButton.style.border = "outset white";
             dButton.style.backgroundColor = "white";
             break;
         case 32:
-            spaceButton.click();
             spaceButton.style.border = "outset white";
             spaceButton.style.backgroundColor = "white";
             break;
     }
 }
 
-function init(newLevel) {               // Every level change
-    level = newLevel;                   // Current level
-    lineScore = 1000 * level;           // Score per line
-    softScore = 10 * level;             // Score per soft drop
-    hardScore = 2 * softScore;          // Score for locking block
-    remain = level * 5;                 // Target lines per level
+// Input translation
+function pressQ() {
+    console.log(`click Q`);
+}
 
-    // Add next block
+function pressW() {
+    console.log(`click W`);
+}
 
-    if (level === 1) {                  // New game
+function pressE() {
+    console.log(`click E`);
+}
+
+function pressA() {
+    console.log(`click A`);
+}
+
+function pressS() {
+    console.log(`click S`);
+}
+
+function pressD() {
+    console.log(`click D`);
+}
+
+function pressSpace() {
+    console.log(`click SPACE`);
+}
+
+
+// Initializer, pass in level
+function init(newLevel) {
+    level = newLevel;   // Current level
+    
+    // Set level timer
+    maxTime = INITIALTIME - (5000 * (level - 1));   // Lose 5 seconds per level
+    if (maxTime < MINTIME) maxTime = 10000;         // Enforce minimum time
+    
+    // Adjust minutes and seconds display
+    minutes = 0;
+    if (maxTime > 60000) {                          
+        while (minutes * 60000 <= maxTime - 60000) minutes++;
+        seconds = (maxTime % 60000) / 1000;
+    } else seconds = maxTime / 1000;
+
+    lineScore = 1000 * level;   // Score per line
+    softScore = 10 * level;     // Score per soft drop
+    hardScore = 2 * softScore;  // Score for locking block
+    remain = level * 5;         // Target lines per level
+    multiply = level / 10 + 1;  // Combo multiplier
+
+    // Create next block
+
+    // New game
+    if (level === 1) {
         score = 0;
         linesMade = 0;
-        seconds = 0;
-        minutes = 0;
         
-        // Add saved block
+        // Empty saved block
 
-        board = [   // Matches drawn board
-            [null, null, null, null, null, null, null, null, null, null], // Top row 0
-            [null, null, null, null, null, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null, null, null]  // Bottom row 19
-        ];
+        // Create new board
+        board = [];
+        for (let i = 0; i < 20; i++) board.push(NEWROW);
     }
 
     render(level);
 }
 
+// Check for line completions
+function checkLines() {
+    let total = 0;
+    for (let i = 0; i < board.length; i++) {
+        if (!board[i].includes(null)) {
+            total++;
+            board.splice(i, 1);
+            board.unshift(NEWROW);
+        }
+    }
+    score += total * lineScore * multiply ** (total - 1);
+    linesMade += total;
+    remain -= total;
+    if (remain < 1) {
+        console.log(`next level`);
+    }
+}
+
+// Primary render function
 function render() {
     scoreEl.textContent = score;
     levelEl.textContent = level;
@@ -200,6 +305,7 @@ function render() {
     hardScoreEl.textContent = hardScore;
     minutesEl.textContent = minutes;
     secondsEl.textContent = seconds > 9 ? seconds : `0${seconds}`;
+    multiplyEl.textContent = multiply;
 
     // Add next block and saved block
 
@@ -218,3 +324,5 @@ function render() {
 }
 
 init(1);
+
+let testLine = ['s', 's', 's', 's', 's', 's', 's', 's', 's', 's'];
