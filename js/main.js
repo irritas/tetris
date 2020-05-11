@@ -1,8 +1,8 @@
-// Version 0.421
+// Version 0.422
 
 /*--- CONSTANTS ---*/
 
-const color = {
+const COLOR = {
     I: "deepskyblue",
     L: "blue",
     J: "orange",
@@ -660,8 +660,8 @@ function render() {
         row.forEach((item, x) => {
             const currentEl = document.getElementById(`${y}-${x}`).style;
             if (item) {
-                currentEl.borderColor = color[item];
-                currentEl.backgroundColor = color[item];
+                currentEl.borderColor = COLOR[item];
+                currentEl.backgroundColor = COLOR[item];
             } else {
                 currentEl.borderColor = "transparent";
                 currentEl.backgroundColor = "transparent";
