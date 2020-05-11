@@ -1,19 +1,19 @@
-// Version 0.3
+// Version 0.4
 
 /*--- CONSTANTS ---*/
 
 const color = {
-    i: "deepskyblue",
-    l: "blue",
-    j: "orange",
-    o: "yellow",
-    s: "lime",
-    z: "red",
-    t: "darkviolet"
+    I: "deepskyblue",
+    L: "blue",
+    J: "orange",
+    O: "yellow",
+    S: "lime",
+    Z: "red",
+    T: "darkviolet"
 };
 
 INITIALTIME = 120000;   // 2 min for level 1
-MINTIME = 10000;        // 10 sec min per level
+MINTIME = 10000;        // 10 sec minimum
 
 // Empty row
 NEWROW = [null, null, null, null, null, null, null, null, null, null];
@@ -22,7 +22,49 @@ NEWROW = [null, null, null, null, null, null, null, null, null, null];
 /*--- CLASSES ---*/
 
 class Block {
+    constructor() {
+        this.orient = 0;
+        this.content = [
+            [null, null, null, null],
+            [null, null, null, null],
+            [null, null, null, null],
+            [null, null, null, null]
+        ];
+    }
 
+    // Rotate orientation
+    rotate(dir) {
+        if (dir === `clock`) {
+            if (this.orient === 3) this.orient = 0;
+            else this.orient++;
+        } else {
+            if (this.orient === 0) this.orient = 3;
+            else this.orient--;
+        }
+        this.update();
+    }
+
+    // Update orientation
+    update() {
+        switch (orient) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+                this.content = [
+                    [null, null, null, null],
+                    [null, null, null, null],
+                    [null, null, null, null],
+                    [null, null, null, null]
+                ];
+        }
+    }
+}
+
+class IBlock extends Block {
+    constructor() {
+
+    }
 }
 
 
@@ -32,6 +74,7 @@ let level;
 let seconds;
 let minutes;
 let maxTime;
+let speed;
 let lineScore;
 let softScore;
 let hardScore;
@@ -243,16 +286,11 @@ function init(newLevel) {
     level = newLevel;   // Current level
     
     // Set level timer
-    maxTime = INITIALTIME - (5000 * (level - 1));   // Lose 5 seconds per level
-    if (maxTime < MINTIME) maxTime = 10000;         // Enforce minimum time
+    maxTime = INITIALTIME - (5000 * (level - 1));       // Lose 5 seconds per level
+    if (maxTime < MINTIME) maxTime = MINTIME;           // Enforce minimum time
+    speed = Math.floor(maxTime / INITIALTIME * 1000);   // Set drop speed
     
-    // Adjust minutes and seconds display
-    minutes = 0;
-    if (maxTime > 60000) {                          
-        while (minutes * 60000 <= maxTime - 60000) minutes++;
-        seconds = (maxTime % 60000) / 1000;
-    } else seconds = maxTime / 1000;
-
+    timeDisplay();              // Set timer minutes and seconds
     lineScore = 1000 * level;   // Score per line
     softScore = 10 * level;     // Score per soft drop
     hardScore = 2 * softScore;  // Score for locking block
@@ -276,6 +314,17 @@ function init(newLevel) {
     render(level);
 }
 
+// Adjust timer minutes and seconds
+function timeDisplay() {
+    let tempMin = 0;
+    if (maxTime > 60000) {                          
+        while (tempMin * 60000 <= maxTime - 60000) tempMin++;
+        seconds = Math.floor((maxTime % 60000) / 1000);
+    } else seconds = Math.floor(maxTime / 1000);
+    if (tempMin < 60) minutes = `0${tempMin}`;
+    else minutes = `${tempMin}`;
+}
+
 // Check for line completions
 function checkLines() {
     let total = 0;
@@ -292,6 +341,37 @@ function checkLines() {
     if (remain < 1) {
         console.log(`next level`);
     }
+}
+
+// Main game function
+function play(level) {
+    init(level);
+    const secondTick = setInterval(() => {
+        maxTime -= 1000;
+        timeDisplay();
+        console.log(`second`);
+
+        // Run out of time
+        if (maxTime <= 0) {
+            clearInterval(secondTick);
+            clearInterval(gameTick);
+            gameOver();
+        }
+
+        render();
+    }, 1000);
+    const gameTick = setInterval(() => {
+        
+        // Soft drop here
+        
+        console.log(`speed`);
+        render();
+    }, speed);
+}
+
+// Game over
+function gameOver() {
+    console.log(`game over`);
 }
 
 // Primary render function
@@ -323,6 +403,6 @@ function render() {
     });
 }
 
-init(1);
+play(1);
 
-let testLine = ['s', 's', 's', 's', 's', 's', 's', 's', 's', 's'];
+let testLine = ['S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S'];
