@@ -399,7 +399,9 @@ const newHighEl = document.getElementById("new-high");
 /*--- LISTENERS ---*/
 
 // Audio toggle
+
 bgmPlayer.volume = 0.01;
+
 bgmCheck.addEventListener("change", () => {
     !bgmCheck.checked ? bgmPlayer.play() : bgmPlayer.pause();
     bgmCheck.blur();
