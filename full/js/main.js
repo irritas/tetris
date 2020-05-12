@@ -1,4 +1,4 @@
-// Version 1.1
+// Version 1.2
 
 /*--- CONSTANTS ---*/
 
@@ -399,9 +399,11 @@ const newHighEl = document.getElementById("new-high");
 /*--- LISTENERS ---*/
 
 // Audio toggle
+
+bgmPlayer.volume = 0.01;
+
 bgmCheck.addEventListener("change", () => {
-    bgmPlayer.volume = 0.01;
-    bgmCheck.checked ? bgmPlayer.play() : bgmPlayer.pause();
+    !bgmCheck.checked ? bgmPlayer.play() : bgmPlayer.pause();
     bgmCheck.blur();
 });
 
