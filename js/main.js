@@ -1,4 +1,4 @@
-// Version 0.7.1
+// Version 0.7.5
 // To do: add audio, add start and game over overlays
 
 /*--- CONSTANTS ---*/
@@ -381,9 +381,20 @@ const aButton = document.getElementById("left");
 const sButton = document.getElementById("soft");
 const dButton = document.getElementById("right");
 const spaceButton = document.getElementById("hard");
+const beginButton = document.getElementById("begin");
+const restartButton = document.getElementById("restart");
+
+const introElStyle = document.getElementById("intro").style;
+const endElStyle = document.getElementById("end").style;
+const gameElStyle = document.querySelector("main").style;
+const controlsElStyle = document.getElementById("controls").style;
 
 
 /*--- LISTENERS ---*/
+
+//New game buttons
+beginButton.addEventListener("click", startGame);
+restartButton.addEventListener("click", startGame);
 
 // Add main game listeners
 function addListen() {
@@ -887,6 +898,10 @@ function render() {
 
 // Start a new game
 function startGame() {
+    introElStyle.display = "none";
+    endElStyle.display = "none";
+    gameElStyle.display = "grid";
+    controlsElStyle.display = "grid";
     play(1);
     addListen();
 }
@@ -895,7 +910,35 @@ function startGame() {
 function gameOver() {
     removeListen();
     gameState = false;
+    if (score > highScore) {
+        console.log(`new high score!`);
+        console.log(score);
+        if (lsEnable) save();
+    } else console.log(highScore);
     console.log(`game over`);
 }
 
-startGame();
+
+/*--- STORAGE ---*/
+
+// Check if localStorage enabled
+let lsEnable = lsTest();
+
+function lsTest(){
+    let test = `test`;
+    try {
+        localStorage.setItem(test, test);
+        localStorage.removeItem(test);
+        return true;
+    } catch(err) {
+        return false;
+    }
+}
+
+// Fetch high Score
+let highScore = lsEnable ? localStorage.getItem("highScore") : null;
+
+// Save new high score
+function save() {
+    localStorage.setItem("highScore", score);
+}

@@ -47,9 +47,9 @@ h1 > span:nth-child(6) {
 }
 
 main {
+    display: none;
     height: 60vmin;
     width: 60vmin;
-    display: grid;
     margin: 3vmin;
     gap: 0 3vmin;
     grid-template-columns: 1fr 2fr 1fr;
@@ -161,7 +161,7 @@ main > div {
 }
 
 #controls {
-    display: grid;
+    display: none;
     align-items: flex-start;
     justify-content: center;
     gap: 1vmin;
@@ -235,4 +235,12 @@ main > div {
     grid-area: "space";
     grid-column: 1 / span 3;
     grid-row: 3;
+}
+
+#intro {
+    margin: 3vmin;
+}
+
+#end {
+    display: none;
 }
