@@ -114,8 +114,8 @@ main > div {
     grid-column: 3;
     grid-row: 2;
     display: grid;
-    grid-template-columns: repeat(4, 2vmin);
-    grid-template-rows: repeat(4, 2vmin);
+    grid-template-columns: repeat(4, 2.5vmin);
+    grid-template-rows: repeat(4, 2.5vmin);
     justify-content: right;
 }
 
@@ -127,15 +127,15 @@ main > div {
 
 #saved-label {
     grid-column: 3;
-    grid-row: 3;
+    grid-row: 5;
 }
 
-#saved-value {
+#saved-value { 
     grid-column: 3;
-    grid-row: 4;
+    grid-row: 6;
     display: grid;
-    grid-template-columns: repeat(4, 2vmin);
-    grid-template-rows: repeat(4, 2vmin);
+    grid-template-columns: repeat(4, 2.5vmin);
+    grid-template-rows: repeat(4, 2.5vmin);
     justify-content: right;
 }
 
@@ -143,18 +143,6 @@ main > div {
     border: outset;
     border-color: transparent;
     background-color: transparent;
-}
-
-#timer-label {
-    grid-column: 3;
-    grid-row: 7;
-    margin-top: -5vmin;
-}
-
-#timer-value {
-    grid-column: 3;
-    grid-row: 8;
-    margin-top: -5vmin;
 }
 
 #board {
