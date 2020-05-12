@@ -1,4 +1,4 @@
-// Version 1.2
+// Version 1.3
 
 /*--- CONSTANTS ---*/
 
@@ -863,10 +863,10 @@ function render() {
     levelEl.textContent = level;
     linesEl.textContent = linesMade;
     remainEl.textContent = remain;
-    lineScoreEl.textContent = lineScore;
-    softScoreEl.textContent = softScore;
-    hardScoreEl.textContent = hardScore;
-    multiplyEl.textContent = multiply;
+    lineScoreEl.textContent = ` ${lineScore}`;
+    softScoreEl.textContent = ` ${softScore}`;
+    hardScoreEl.textContent = ` ${hardScore}`;
+    multiplyEl.textContent = `${multiply} `;
 
     // Add next block and saved block
     nextBlock.content.forEach((row, y) => {
@@ -928,11 +928,11 @@ function gameOver() {
     removeListen();
     gameState = false;
     endElStyle.display = "block";
-    endScoreEl.textContent = score;
+    endScoreEl.textContent = ` ${score}`;
 
     // Save high score
     if (lsEnable) {
-        highScoreEl.textContent = highScore;
+        highScoreEl.textContent = ` ${highScore}`;
         if (score > highScore) {
             newHighEl.textContent = "New high score!";
             saveHighScore();
