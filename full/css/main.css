@@ -22,6 +22,7 @@ h1 {
     margin: 0;
     height: 10vmin;
     line-height: 10vmin;
+    letter-spacing: 0.5vmin;
 }
 
 h1 > span:nth-child(1) {
