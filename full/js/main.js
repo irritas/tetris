@@ -1,4 +1,4 @@
-// Version 1.3
+// Version 1.4
 
 /*--- CONSTANTS ---*/
 
@@ -358,9 +358,6 @@ let curY;
 let gameState;
 let levelComplete;
 
-// For limiting keypress
-let pressedKey;
-
 
 /*--- CACHE ---*/
 
@@ -414,22 +411,7 @@ restartButton.addEventListener("click", startGame);
 // Add main game listeners
 function addListen() {
     window.addEventListener("keydown", pressKey);
-
-    qButton.addEventListener("mouseover", mouseOver);
-    wButton.addEventListener("mouseover", mouseOver);
-    eButton.addEventListener("mouseover", mouseOver);
-    aButton.addEventListener("mouseover", mouseOver);
-    sButton.addEventListener("mouseover", mouseOver);
-    dButton.addEventListener("mouseover", mouseOver);
-    spaceButton.addEventListener("mouseover", mouseOver);
-
-    qButton.addEventListener("mousedown", mouseDown);
-    wButton.addEventListener("mousedown", mouseDown);
-    eButton.addEventListener("mousedown", mouseDown);
-    aButton.addEventListener("mousedown", mouseDown);
-    sButton.addEventListener("mousedown", mouseDown);
-    dButton.addEventListener("mousedown", mouseDown);
-    spaceButton.addEventListener("mousedown", mouseDown);
+    window.addEventListener("keyup", releaseKey);
 
     qButton.addEventListener("click", rotateCounter);
     wButton.addEventListener("click", saveBlock);
@@ -438,11 +420,77 @@ function addListen() {
     sButton.addEventListener("click", pressS);
     dButton.addEventListener("click", moveRight);
     spaceButton.addEventListener("click", hardDrop);
+
+    if (isTouch()) {
+        qButton.addEventListener("touchstart", touchStart);
+        wButton.addEventListener("touchstart", touchStart);
+        eButton.addEventListener("touchstart", touchStart);
+        aButton.addEventListener("touchstart", touchStart);
+        sButton.addEventListener("touchstart", touchStart);
+        dButton.addEventListener("touchstart", touchStart);
+        spaceButton.addEventListener("touchstart", touchStart);
+
+        qButton.addEventListener("touchend", touchEnd);
+        wButton.addEventListener("touchend", touchEnd);
+        eButton.addEventListener("touchend", touchEnd);
+        aButton.addEventListener("touchend", touchEnd);
+        sButton.addEventListener("touchend", touchEnd);
+        dButton.addEventListener("touchend", touchEnd);
+        spaceButton.addEventListener("touchend", touchEnd);
+    } else {
+        qButton.addEventListener("mouseover", mouseOver);
+        wButton.addEventListener("mouseover", mouseOver);
+        eButton.addEventListener("mouseover", mouseOver);
+        aButton.addEventListener("mouseover", mouseOver);
+        sButton.addEventListener("mouseover", mouseOver);
+        dButton.addEventListener("mouseover", mouseOver);
+        spaceButton.addEventListener("mouseover", mouseOver);
+
+        qButton.addEventListener("mouseout", mouseOut);
+        wButton.addEventListener("mouseout", mouseOut);
+        eButton.addEventListener("mouseout", mouseOut);
+        aButton.addEventListener("mouseout", mouseOut);
+        sButton.addEventListener("mouseout", mouseOut);
+        dButton.addEventListener("mouseout", mouseOut);
+        spaceButton.addEventListener("mouseout", mouseOut);
+
+        qButton.addEventListener("mousedown", mouseDown);
+        wButton.addEventListener("mousedown", mouseDown);
+        eButton.addEventListener("mousedown", mouseDown);
+        aButton.addEventListener("mousedown", mouseDown);
+        sButton.addEventListener("mousedown", mouseDown);
+        dButton.addEventListener("mousedown", mouseDown);
+        spaceButton.addEventListener("mousedown", mouseDown);
+
+        qButton.addEventListener("mouseup", mouseUp);
+        wButton.addEventListener("mouseup", mouseUp);
+        eButton.addEventListener("mouseup", mouseUp);
+        aButton.addEventListener("mouseup", mouseUp);
+        sButton.addEventListener("mouseup", mouseUp);
+        dButton.addEventListener("mouseup", mouseUp);
+        spaceButton.addEventListener("mouseup", mouseUp);
+    }
 }
 
 // Remove main game listeners
 function removeListen() {
     window.removeEventListener("keydown", pressKey);
+
+    qButton.removeEventListener("click", rotateCounter);
+    wButton.removeEventListener("click", saveBlock);
+    eButton.removeEventListener("click", rotateClock);
+    aButton.removeEventListener("click", moveLeft);
+    sButton.removeEventListener("click", pressS);
+    dButton.removeEventListener("click", moveRight);
+    spaceButton.removeEventListener("click", hardDrop);
+
+    qButton.removeEventListener("touchstart", touchStart);
+    wButton.removeEventListener("touchstart", touchStart);
+    eButton.removeEventListener("touchstart", touchStart);
+    aButton.removeEventListener("touchstart", touchStart);
+    sButton.removeEventListener("touchstart", touchStart);
+    dButton.removeEventListener("touchstart", touchStart);
+    spaceButton.removeEventListener("touchstart", touchStart);
 
     qButton.removeEventListener("mouseover", mouseOver);
     wButton.removeEventListener("mouseover", mouseOver);
@@ -459,36 +507,6 @@ function removeListen() {
     sButton.removeEventListener("mousedown", mouseDown);
     dButton.removeEventListener("mousedown", mouseDown);
     spaceButton.removeEventListener("mousedown", mouseDown);
-
-    qButton.removeEventListener("click", rotateCounter);
-    wButton.removeEventListener("click", saveBlock);
-    eButton.removeEventListener("click", rotateClock);
-    aButton.removeEventListener("click", moveLeft);
-    sButton.removeEventListener("click", pressS);
-    dButton.removeEventListener("click", moveRight);
-    spaceButton.removeEventListener("click", hardDrop);
-}
-
-// Enable mouse click effect
-function keyEffectEnable() {
-    qButton.addEventListener("mouseup", mouseUp);
-    wButton.addEventListener("mouseup", mouseUp);
-    eButton.addEventListener("mouseup", mouseUp);
-    aButton.addEventListener("mouseup", mouseUp);
-    sButton.addEventListener("mouseup", mouseUp);
-    dButton.addEventListener("mouseup", mouseUp);
-    spaceButton.addEventListener("mouseup", mouseUp);
-}
-
-// Disable mouse click effect
-function keyEffectDisable() {
-    qButton.removeEventListener("mouseup", mouseUp);
-    wButton.removeEventListener("mouseup", mouseUp);
-    eButton.removeEventListener("mouseup", mouseUp);
-    aButton.removeEventListener("mouseup", mouseUp);
-    sButton.removeEventListener("mouseup", mouseUp);
-    dButton.removeEventListener("mouseup", mouseUp);
-    spaceButton.removeEventListener("mouseup", mouseUp);
 }
 
 // Translate soft drop input
@@ -499,31 +517,22 @@ function pressS() {
 // Hover highlight
 function mouseOver(evt) {
     evt.target.style.backgroundColor = "lightgrey";
-    qButton.addEventListener("mouseout", mouseOut);
-    wButton.addEventListener("mouseout", mouseOut);
-    eButton.addEventListener("mouseout", mouseOut);
-    aButton.addEventListener("mouseout", mouseOut);
-    sButton.addEventListener("mouseout", mouseOut);
-    dButton.addEventListener("mouseout", mouseOut);
-    spaceButton.addEventListener("mouseout", mouseOut);
 }
 
 // Revert hover
 function mouseOut(evt) {
     evt.target.style.backgroundColor = "white";
-    qButton.removeEventListener("mouseout", mouseOut);
-    wButton.removeEventListener("mouseout", mouseOut);
-    eButton.removeEventListener("mouseout", mouseOut);
-    aButton.removeEventListener("mouseout", mouseOut);
-    sButton.removeEventListener("mouseout", mouseOut);
-    dButton.removeEventListener("mouseout", mouseOut);
-    spaceButton.removeEventListener("mouseout", mouseOut);
 }
 
 // Button press animation
 function mouseDown(evt) {
     evt.target.style.border = "inset lightgrey";
     keyEffectEnable();
+}
+
+function touchStart(evt) {
+    evt.target.style.border = "inset lightgrey";
+    evt.target.style.backgroundColor = "lightgrey";
 }
 
 // Revert button press
@@ -533,12 +542,14 @@ function mouseUp(evt) {
     evt.target.blur();
 }
 
+function touchEnd(evt) {
+    evt.target.style.border = "outset white";
+    evt.target.style.backgroundColor = "white";
+}
+
 // Key press
 function pressKey(evt) {
-    keyEffectEnable();  // Required for blur
-    pressedKey = evt.keyCode;
-    window.addEventListener("keyup", releaseKey);
-    switch (pressedKey) {
+    switch (evt.keyCode) {
         case 81:
             rotateCounter();
             qButton.style.border = "inset lightgrey";
@@ -579,23 +590,35 @@ function pressKey(evt) {
 
 // Key release
 function releaseKey(evt) {
-    if (evt.keyCode === pressedKey) {
-        window.removeEventListener("keyup", releaseKey);
-        qButton.style.border = "outset white";
-        qButton.style.backgroundColor = "white";
-        wButton.style.border = "outset white";
-        wButton.style.backgroundColor = "white";
-        eButton.style.border = "outset white";
-        eButton.style.backgroundColor = "white";
-        aButton.style.border = "outset white";
-        aButton.style.backgroundColor = "white";
-        sButton.style.border = "outset white";
-        sButton.style.backgroundColor = "white";
-        dButton.style.border = "outset white";
-        dButton.style.backgroundColor = "white";
-        spaceButton.style.border = "outset white";
-        spaceButton.style.backgroundColor = "white";
-        keyEffectDisable();
+    switch (evt.keyCode) {
+        case 81:
+            qButton.style.border = "outset white";
+            qButton.style.backgroundColor = "white";
+            break;
+        case 87:
+            wButton.style.border = "outset white";
+            wButton.style.backgroundColor = "white";
+            break;
+        case 69:
+            eButton.style.border = "outset white";
+            eButton.style.backgroundColor = "white";
+            break;
+        case 65:
+            aButton.style.border = "outset white";
+            aButton.style.backgroundColor = "white";
+            break;
+        case 83:
+            sButton.style.border = "outset white";
+            sButton.style.backgroundColor = "white";
+            break;
+        case 68:
+            dButton.style.border = "outset white";
+            dButton.style.backgroundColor = "white";
+            break;
+        case 32:
+            spaceButton.style.border = "outset white";
+            spaceButton.style.backgroundColor = "white";
+            break;
     }
 }
 
@@ -643,6 +666,7 @@ function init(newLevel) {
 /*--- BLOCK MOVEMENT ---*/
 
 function moveLeft() {
+    if (!gameState) return 0;   // Limit input
     eraseCurBlock();
     if (valid(curBlock.content, curY, curX - 1)) {
         curX--;
@@ -653,6 +677,7 @@ function moveLeft() {
 }
 
 function moveRight() {
+    if (!gameState) return 0;   // Limit input
     eraseCurBlock();
     if (valid(curBlock.content, curY, curX + 1)) {
         curX++;
@@ -663,6 +688,7 @@ function moveRight() {
 }
 
 function rotateCounter() {
+    if (!gameState) return 0;   // Limit input
     eraseCurBlock();
     curBlock.rotate(`counter`);
     if (!valid(curBlock.content, curY, curX)) curBlock.rotate(`clock`);
@@ -670,6 +696,7 @@ function rotateCounter() {
 }
 
 function rotateClock() {
+    if (!gameState) return 0;   // Limit input
     eraseCurBlock();
     curBlock.rotate(`clock`);
     if (!valid(curBlock.content, curY, curX)) curBlock.rotate(`counter`);
@@ -678,9 +705,7 @@ function rotateClock() {
 
 // Drop block 1 line
 function softDrop(manual) {
-    // Limit input
-    if (!gameState) return 0;
-
+    if (!gameState) return 0;   // Limit input
     eraseCurBlock();
     if (valid(curBlock.content, curY + 1, curX)) {
         curY++;
@@ -692,9 +717,7 @@ function softDrop(manual) {
 
 // Drop block max
 function hardDrop() {
-    // Limit input
-    if (!gameState) return;
-
+    if (!gameState) return 0;   // Limit input
     while (7) {
         if (softDrop(true)) return;
     }
@@ -941,6 +964,15 @@ function gameOver() {
         highScoreEl.textContent = "???";
         newHighEl.textContent = "Cookies disabled!";
     }
+}
+
+function isTouch() {  
+    try {  
+      document.createEvent("TouchEvent");  
+      return true;  
+    } catch (e) {  
+      return false;  
+    }  
 }
 
 
