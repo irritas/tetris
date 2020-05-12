@@ -1,4 +1,4 @@
-// Version 0.7
+// Version 0.7.1
 // To do: add audio, add start and game over overlays
 
 /*--- CONSTANTS ---*/
@@ -839,10 +839,10 @@ function render() {
     levelEl.textContent = level < 999999 ? level : `BROKEN`;
     linesEl.textContent = linesMade < 999999 ? linesMade : `BROKEN`;
     remainEl.textContent = remain < 999999 ? remain : `BROKEN`;
-    lineScoreEl.textContent = lineScore < 999999 ? score : `BROKEN`;
-    softScoreEl.textContent = softScore < 999999 ? score : `BROKEN`;
-    hardScoreEl.textContent = hardScore < 999 ? score : `BROKEN`;
-    multiplyEl.textContent = multiply < 999999 ? score : `BROKEN`;
+    lineScoreEl.textContent = lineScore < 999999 ? lineScore : `BROKEN`;
+    softScoreEl.textContent = softScore < 999999 ? softScore : `BROKEN`;
+    hardScoreEl.textContent = hardScore < 999 ? hardScore : `BROKEN`;
+    multiplyEl.textContent = multiply < 999999 ? multiply : `BROKEN`;
 
     // Add next block and saved block
     nextBlock.content.forEach((row, y) => {
