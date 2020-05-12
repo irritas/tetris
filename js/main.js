@@ -1,4 +1,4 @@
-// Version 1.0
+// Version 1.1
 
 /*--- CONSTANTS ---*/
 
@@ -913,6 +913,7 @@ function startGame() {
     endElStyle.display = "none";
     gameElStyle.display = "grid";
     controlsElStyle.display = "grid";
+    lsEnable = lsTest();
     fetchHighScore();
     play(1);
     beginButton.blur();
@@ -944,7 +945,7 @@ function gameOver() {
 /*--- STORAGE ---*/
 
 // Check if localStorage enabled
-let lsEnable = lsTest();
+let lsEnable;
 
 function lsTest(){
     let test = `test`;
