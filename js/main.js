@@ -1,4 +1,4 @@
-// Version 0.7.5
+// Version 0.7.6
 // To do: add audio, add start and game over overlays
 
 /*--- CONSTANTS ---*/
@@ -908,14 +908,18 @@ function startGame() {
 
 // Game over
 function gameOver() {
+    console.log(`game over`);
     removeListen();
     gameState = false;
-    if (score > highScore) {
-        console.log(`new high score!`);
-        console.log(score);
-        if (lsEnable) save();
-    } else console.log(highScore);
-    console.log(`game over`);
+
+    // Save high score
+    if (lsEnable) {
+        if (score > highScore) {
+            console.log(`new high score!`);
+            console.log(score);
+            save();
+        } console.log(highScore);
+    } else console.log(`save disabled`);
 }
 
 
