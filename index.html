@@ -21,6 +21,11 @@
         <span>S</span>
     </h1>
 
+    <div id="toggle">
+        <input type="checkbox" id="music" name="music">
+        <label for="music">Enable music</label>
+    </div>
+
     <main>
         <div id="score-label">Score:</div>
         <div id="score-value">0</div>
@@ -319,8 +324,8 @@
         </section>
         <div id="labels">
             <p>Controls:<br><br></p>
-            <p>Q: Rotate counterclockwise</p>
-            <p>E: Rotate clockwise</p>
+            <p>Q: Rotate <img id="counter-img" src="img/counter.png"></p>
+            <p>E: Rotate <img id="clock-img" src="img/clock.png"></p>
             <p>A: Move left</p>
             <p>D: Move right</p>
             <p>W: Save block</p>
@@ -330,12 +335,27 @@
     </section>
 
     <section id="intro">
-        <button id="begin">Start Game</button>
+        <p>
+            Complete lines to score points! 
+            More lines means new levels and more points! 
+            Each level gets faster and faster!
+        </p>
+        <div><button id="begin">Start Game</button></div>
     </section>
 
     <section id="end">
-        <button id="restart">New Game?</button>
+        <div>Game Over!</div>
+        <div>
+            <div>Your score: <span id="new-score">0</span></div>
+            <div id="high-score">
+                <p>High score: <span id="current-high">0</span><br></p>
+                <p id="new-high">New high score!</p>
+            </div>
+        </div>
+        <div><button id="restart">New Game?</button></div>
     </section>
+
+    <audio id="bg-player" src="ogg/theme.ogg" loop></audio>
 </body>
 
 </html>

@@ -1,5 +1,4 @@
-// Version 0.7.6
-// To do: add audio, add start and game over overlays
+// Version 1.0
 
 /*--- CONSTANTS ---*/
 
@@ -389,10 +388,24 @@ const endElStyle = document.getElementById("end").style;
 const gameElStyle = document.querySelector("main").style;
 const controlsElStyle = document.getElementById("controls").style;
 
+const bgmCheck = document.getElementById("music");
+const bgmPlayer = document.getElementById("bg-player");
+
+const endScoreEl = document.getElementById("new-score");
+const highScoreEl = document.getElementById("current-high");
+const newHighEl = document.getElementById("new-high");
+
 
 /*--- LISTENERS ---*/
 
-//New game buttons
+// Audio toggle
+bgmCheck.addEventListener("change", () => {
+    bgmPlayer.volume = 0.01;
+    bgmCheck.checked ? bgmPlayer.play() : bgmPlayer.pause();
+    bgmCheck.blur();
+});
+
+// New game buttons
 beginButton.addEventListener("click", startGame);
 restartButton.addEventListener("click", startGame);
 
@@ -520,8 +533,7 @@ function mouseUp(evt) {
 
 // Key press
 function pressKey(evt) {
-    removeListen();
-    keyEffectEnable();  // Required for mouse blur
+    keyEffectEnable();  // Required for blur
     pressedKey = evt.keyCode;
     window.addEventListener("keyup", releaseKey);
     switch (pressedKey) {
@@ -582,7 +594,6 @@ function releaseKey(evt) {
         spaceButton.style.border = "outset white";
         spaceButton.style.backgroundColor = "white";
         keyEffectDisable();
-        if (gameState) addListen();
     }
 }
 
@@ -701,7 +712,7 @@ function lockBlock() {
     randNextBlock();
 
     // Game over
-    if (!valid(curBlock.content, curY, curX) ) {
+    if (!valid(curBlock.content, curY, curX)) {
         gameState = false;
         return -1;
     }
@@ -846,14 +857,14 @@ function play(newLevel) {
 
 // Primary render function
 function render() {
-    scoreEl.textContent = score < 999999 ? score : `BROKEN`;
-    levelEl.textContent = level < 999999 ? level : `BROKEN`;
-    linesEl.textContent = linesMade < 999999 ? linesMade : `BROKEN`;
-    remainEl.textContent = remain < 999999 ? remain : `BROKEN`;
-    lineScoreEl.textContent = lineScore < 999999 ? lineScore : `BROKEN`;
-    softScoreEl.textContent = softScore < 999999 ? softScore : `BROKEN`;
-    hardScoreEl.textContent = hardScore < 999 ? hardScore : `BROKEN`;
-    multiplyEl.textContent = multiply < 999999 ? multiply : `BROKEN`;
+    scoreEl.textContent = score < 999999 ? score : Number.parseFloat(score).toExponential(1);
+    levelEl.textContent = level;
+    linesEl.textContent = linesMade;
+    remainEl.textContent = remain;
+    lineScoreEl.textContent = lineScore;
+    softScoreEl.textContent = softScore;
+    hardScoreEl.textContent = hardScore;
+    multiplyEl.textContent = multiply;
 
     // Add next block and saved block
     nextBlock.content.forEach((row, y) => {
@@ -902,24 +913,31 @@ function startGame() {
     endElStyle.display = "none";
     gameElStyle.display = "grid";
     controlsElStyle.display = "grid";
+    fetchHighScore();
     play(1);
+    beginButton.blur();
+    restartButton.blur();
     addListen();
 }
 
 // Game over
 function gameOver() {
-    console.log(`game over`);
     removeListen();
     gameState = false;
+    endElStyle.display = "block";
+    endScoreEl.textContent = score;
 
     // Save high score
     if (lsEnable) {
+        highScoreEl.textContent = highScore;
         if (score > highScore) {
-            console.log(`new high score!`);
-            console.log(score);
-            save();
-        } console.log(highScore);
-    } else console.log(`save disabled`);
+            newHighEl.textContent = "New high score!";
+            saveHighScore();
+        } else newHighEl.textContent = "Better luck next time!";
+    } else {
+        highScoreEl.textContent = "???";
+        newHighEl.textContent = "Cookies disabled!";
+    }
 }
 
 
@@ -940,9 +958,16 @@ function lsTest(){
 }
 
 // Fetch high Score
-let highScore = lsEnable ? localStorage.getItem("highScore") : null;
+let highScore;
+
+function fetchHighScore() {
+    if (lsEnable) {
+        highScore = localStorage.getItem("highScore");
+        if (!highScore) highScore = 0;
+    }
+}
 
 // Save new high score
-function save() {
+function saveHighScore() {
     localStorage.setItem("highScore", score);
 }
