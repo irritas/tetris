@@ -1,7 +1,7 @@
 *, *::before, *::after {
     box-sizing: border-box;
 }
-  
+
 body {
     height: 100vh;
     margin: 0;
@@ -403,7 +403,7 @@ main > div {
     }
 
     #clickable > button {
-        font-size: 3vmin;
+        font-size: 4vmin;
     }
 
     #intro {
@@ -417,7 +417,8 @@ main > div {
     #intro > div > button {
         margin-top: 5vmin;
         height: 100%;
-        font-size: 3vmin;
+        width: 70%;
+        font-size: 4vmin;
         padding: 3vmin;
     }
 
@@ -437,7 +438,8 @@ main > div {
     #end > div > button {
         margin-top: 6vmin;
         height: 100%;
-        font-size: 3vmin;
+        width: 70%;
+        font-size: 4vmin;
         padding: 3vmin;
     }
 }
