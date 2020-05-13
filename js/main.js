@@ -1,4 +1,4 @@
-// Version 1.5
+// Version 1.5.1
 
 /*--- CONSTANTS ---*/
 
@@ -339,7 +339,6 @@ class ZBlock extends Block {
 
 /*--- STATE ---*/
 
-// For game
 let level;
 let speed;
 let lineScore;
@@ -397,7 +396,7 @@ const newHighEl = document.getElementById("new-high");
 
 // Audio toggle
 
-bgmPlayer.volume = 0.01;
+bgmPlayer.volume = 0.1;
 
 bgmCheck.addEventListener("change", () => {
     !bgmCheck.checked ? bgmPlayer.play() : bgmPlayer.pause();
