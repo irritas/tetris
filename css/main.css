@@ -272,11 +272,11 @@ main > div {
     padding: 2vmin;
 }
 
-#intro > button:hover {
+#intro > div > button:hover {
     background-color: lightgrey;
 }
 
-#intro > button:active {
+#intro > div > button:active {
     border: inset lightgrey;
 }
 
@@ -320,11 +320,11 @@ main > div {
     padding: 2vmin;
 }
 
-#end > button:hover {
+#end > div > button:hover {
     background-color: lightgrey;
 }
 
-#end > button:active {
+#end > div > button:active {
     border: inset lightgrey;
 }
 
