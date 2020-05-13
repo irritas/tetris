@@ -1,4 +1,4 @@
-// Version 1.5.3
+// Version 1.5.4
 
 /*--- CONSTANTS ---*/
 
@@ -12,7 +12,6 @@ const COLOR = {
     T: "darkviolet"
 };
 
-const INITIALTIME = 120000; // 2 min for level 1
 const MINSPEED = 100;       // Minimum speed
 const DIFFICULTY = 5;       // Determines speed change
 
