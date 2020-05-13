@@ -1,4 +1,4 @@
-// Version 1.4.2
+// Version 1.5
 
 /*--- CONSTANTS ---*/
 
@@ -453,23 +453,23 @@ function addListen() {
         sButton.addEventListener("mouseout", mouseOut);
         dButton.addEventListener("mouseout", mouseOut);
         spaceButton.addEventListener("mouseout", mouseOut);
-
-        qButton.addEventListener("mousedown", mouseDown);
-        wButton.addEventListener("mousedown", mouseDown);
-        eButton.addEventListener("mousedown", mouseDown);
-        aButton.addEventListener("mousedown", mouseDown);
-        sButton.addEventListener("mousedown", mouseDown);
-        dButton.addEventListener("mousedown", mouseDown);
-        spaceButton.addEventListener("mousedown", mouseDown);
-
-        qButton.addEventListener("mouseup", mouseUp);
-        wButton.addEventListener("mouseup", mouseUp);
-        eButton.addEventListener("mouseup", mouseUp);
-        aButton.addEventListener("mouseup", mouseUp);
-        sButton.addEventListener("mouseup", mouseUp);
-        dButton.addEventListener("mouseup", mouseUp);
-        spaceButton.addEventListener("mouseup", mouseUp);
     }
+
+    qButton.addEventListener("mousedown", mouseDown);
+    wButton.addEventListener("mousedown", mouseDown);
+    eButton.addEventListener("mousedown", mouseDown);
+    aButton.addEventListener("mousedown", mouseDown);
+    sButton.addEventListener("mousedown", mouseDown);
+    dButton.addEventListener("mousedown", mouseDown);
+    spaceButton.addEventListener("mousedown", mouseDown);
+
+    qButton.addEventListener("mouseup", mouseUp);
+    wButton.addEventListener("mouseup", mouseUp);
+    eButton.addEventListener("mouseup", mouseUp);
+    aButton.addEventListener("mouseup", mouseUp);
+    sButton.addEventListener("mouseup", mouseUp);
+    dButton.addEventListener("mouseup", mouseUp);
+    spaceButton.addEventListener("mouseup", mouseUp);
 }
 
 // Remove main game listeners
@@ -527,7 +527,6 @@ function mouseOut(evt) {
 // Button press animation
 function mouseDown(evt) {
     evt.target.style.border = "inset lightgrey";
-    keyEffectEnable();
 }
 
 function touchStart(evt) {
@@ -538,13 +537,13 @@ function touchStart(evt) {
 // Revert button press
 function mouseUp(evt) {
     evt.target.style.border = "outset white";
-    keyEffectDisable();
     evt.target.blur();
 }
 
 function touchEnd(evt) {
     evt.target.style.border = "outset white";
     evt.target.style.backgroundColor = "white";
+    evt.target.blur();
 }
 
 // Key press
