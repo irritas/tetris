@@ -1,5 +1,3 @@
-// Version 1.5.4
-
 /*--- CONSTANTS ---*/
 
 const COLOR = {
