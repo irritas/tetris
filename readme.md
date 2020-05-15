@@ -58,5 +58,5 @@ One useful tool available to the player is the save button. By pressing it, the 
 Next Steps
 ----------
 
-* Difficulty selection
-* Pause functionality
+* Add difficulty selection
+* Add pause functionality
