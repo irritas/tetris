@@ -24,7 +24,6 @@ Screenshots
 
 ![](https://github.com/irritas/tetris/blob/master/images/gameover.PNG "Game Over")
 
-___
 
 Technologies Used
 -----------------
@@ -33,7 +32,6 @@ Technologies Used
 * CSS
 * Javascript
 
-___
 
 Getting Started
 ---------------
@@ -56,7 +54,6 @@ One useful tool available to the player is the save button. By pressing it, the 
 | S     | Drop block once         |
 | Space | Finish block            |
 
-___
 
 Next Steps
 ----------
