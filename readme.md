@@ -8,16 +8,16 @@ Screenshots
 -----------
 
 _Intro:_
-![alt text](images/intro.png "Intro Screen")
+![](https://github.com/irritas/tetris/blob/master/images/intro.PNG "Intro Screen")
 
 _Main game:_
-![alt text](images/gamenormal.png "Main Game")
+![](https://github.com/irritas/tetris/blob/master/images/gamenormal.PNG "Main Game")
 
 _Mobile version:_
-![alt text](images/gamemobile.png "Mobile Vesion")
+![](https://github.com/irritas/tetris/blob/master/images/gamemobile.PNG "Mobile Vesion")
 
 _Game over:_
-![alt text](images/gameover.png "Game Over")
+![](https://github.com/irritas/tetris/blob/master/images/gameover.PNG "Game Over")
 
 
 Technologies Used
